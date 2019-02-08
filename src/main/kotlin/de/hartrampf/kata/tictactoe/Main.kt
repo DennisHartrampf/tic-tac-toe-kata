@@ -1,20 +1,27 @@
 package de.hartrampf.kata.tictactoe
 
+import java.io.Console
 import kotlin.system.exitProcess
 
 fun main() {
-    val console = System.console()
-    if (console == null) {
-        System.err.println("Must be started from console.")
-        exitProcess(1)
-    }
+    val console = getConsole()
     val gameBoard = GameBoard()
     val controller = GameBoardConsoleController(gameBoard, console)
     var player = 0
     while (true) {
         controller.visualize()
         val nextCommand = controller.getNextCommand()
-        gameBoard.placeToken(Players.values()[player], nextCommand)
+        val coordinates = Coordinates.valueOf(nextCommand)
+        gameBoard.placeToken(Players.values()[player], coordinates)
         player = (player + 1) % 2
     }
+}
+
+private fun getConsole(): Console {
+    val console = System.console()
+    if (console == null) {
+        System.err.println("Must be started from console.")
+        exitProcess(1)
+    }
+    return console
 }
