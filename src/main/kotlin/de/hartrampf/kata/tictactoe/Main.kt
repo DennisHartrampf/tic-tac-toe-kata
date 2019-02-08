@@ -12,8 +12,9 @@ fun main() {
         controller.visualize()
         val nextCommand = controller.getNextCommand()
         val coordinates = Coordinates.valueOf(nextCommand)
-        gameBoard.placeToken(Players.values()[player], coordinates)
-        player = (player + 1) % 2
+        if (gameBoard.placeToken(Players.values()[player], coordinates)) {
+            player = (player + 1) % 2
+        }
     }
 }
 

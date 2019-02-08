@@ -40,7 +40,21 @@ class GameBoardTest {
         assertThat(gameBoard.board).isEqualTo(arrayOf(arrayOf(PLAYER_ONE, EMPTY, PLAYER_TWO), arrayOf(EMPTY, PLAYER_TWO, EMPTY), arrayOf(EMPTY, EMPTY, EMPTY)))
     }
 
-    private fun <ELEMENT> ObjectArrayAssert<ELEMENT>.isEmptyBoard(): ObjectArrayAssert<ELEMENT>? {
+    @Test
+    fun testPlaceToken_alreadyOccupied() {
+        assertThat(gameBoard.board).isEmptyBoard()
+
+        assertThat(gameBoard.placeToken(Players.ONE, A0)).isTrue()
+        assertThat(gameBoard.board).isEqualTo(arrayOf(arrayOf(PLAYER_ONE, EMPTY, EMPTY), arrayOf(EMPTY, EMPTY, EMPTY), arrayOf(EMPTY, EMPTY, EMPTY)))
+
+        assertThat(gameBoard.placeToken(Players.TWO, A0)).isFalse()
+        assertThat(gameBoard.board).isEqualTo(arrayOf(arrayOf(PLAYER_ONE, EMPTY, EMPTY), arrayOf(EMPTY, EMPTY, EMPTY), arrayOf(EMPTY, EMPTY, EMPTY)))
+
+        assertThat(gameBoard.placeToken(Players.ONE, A0)).isFalse()
+        assertThat(gameBoard.board).isEqualTo(arrayOf(arrayOf(PLAYER_ONE, EMPTY, EMPTY), arrayOf(EMPTY, EMPTY, EMPTY), arrayOf(EMPTY, EMPTY, EMPTY)))
+    }
+
+    private fun <ELEMENT> ObjectArrayAssert<ELEMENT>.isEmptyBoard(): ObjectArrayAssert<ELEMENT> {
         return this.isEqualTo(arrayOf(arrayOf(EMPTY, EMPTY, EMPTY), arrayOf(EMPTY, EMPTY, EMPTY), arrayOf(EMPTY, EMPTY, EMPTY)))
     }
 }
