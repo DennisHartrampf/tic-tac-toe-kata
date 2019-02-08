@@ -7,7 +7,7 @@ class GameBoard {
         board[coordinates[1].toString().toInt()][when (coordinates[0]) {
             'A' -> 0
             'B' -> 1
-            'C' -> 3
+            'C' -> 2
 
             else -> throw IllegalStateException()
         }] = player.token
