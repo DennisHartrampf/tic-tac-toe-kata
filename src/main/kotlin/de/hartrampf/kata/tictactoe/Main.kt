@@ -8,6 +8,13 @@ fun main() {
         System.err.println("Must be started from console.")
         exitProcess(1)
     }
-    val controller = GameBoardConsoleController(GameBoard(), console)
-    controller.visualize()
+    val gameBoard = GameBoard()
+    val controller = GameBoardConsoleController(gameBoard, console)
+    var player = 0
+    while (true) {
+        controller.visualize()
+        val nextCommand = controller.getNextCommand()
+        gameBoard.placeToken(Players.values()[player], nextCommand)
+        player = (player + 1) % 2
+    }
 }
