@@ -1,5 +1,6 @@
 package de.hartrampf.kata.tictactoe
 
+import de.hartrampf.kata.tictactoe.Coordinates.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -7,10 +8,16 @@ internal class CoordinatesTest {
 
     @Test
     fun testValues() {
-        assertThat(Coordinates.values()).containsExactlyInAnyOrder(
-                Coordinates.A0, Coordinates.B0, Coordinates.C0,
-                Coordinates.A1, Coordinates.B1, Coordinates.C1,
-                Coordinates.A2, Coordinates.B2, Coordinates.C2)
+        assertThat(values()).containsExactlyInAnyOrder(
+                A0, B0, C0,
+                A1, B1, C1,
+                A2, B2, C2)
+    }
+
+    @Test
+    fun testDiagonals() {
+        assertThat(Coordinates.diagonal1).containsExactlyInAnyOrder(A0, B1, C2)
+        assertThat(Coordinates.diagonal2).containsExactlyInAnyOrder(C0, B1, A2)
     }
 
 }
