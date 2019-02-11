@@ -72,5 +72,35 @@ internal class GameBoardConsoleControllerTest {
         verify { console.printf("%s %s | %s | %s%n", "2", "X", "O", "X") }
     }
 
+    @Test
+    fun testVisualize_gameOverFull() {
+        every { board.board } returns arrayOf(arrayOf(EMPTY, EMPTY, EMPTY), arrayOf(EMPTY, EMPTY, EMPTY), arrayOf(EMPTY, EMPTY, EMPTY))
+        every { board.winner } returns null
+        every { board.isFull() } returns true
+        controller.visualize()
+
+        verify { console.printf("  A | B | C%n") }
+        verify { console.printf("%s %s | %s | %s%n", "0", " ", " ", " ") }
+        verify { console.printf("----+---+---%n") }
+        verify { console.printf("%s %s | %s | %s%n", "1", " ", " ", " ") }
+        verify { console.printf("----+---+---%n") }
+        verify { console.printf("%s %s | %s | %s%n", "2", " ", " ", " ") }
+        verify { console.printf("Game is draw!%n") }
+    }
+
+    @Test
+    fun testVisualize_gameOverWinner() {
+        every { board.board } returns arrayOf(arrayOf(EMPTY, EMPTY, EMPTY), arrayOf(EMPTY, EMPTY, EMPTY), arrayOf(EMPTY, EMPTY, EMPTY))
+        every { board.winner } returns Players.ONE
+        controller.visualize()
+
+        verify { console.printf("  A | B | C%n") }
+        verify { console.printf("%s %s | %s | %s%n", "0", " ", " ", " ") }
+        verify { console.printf("----+---+---%n") }
+        verify { console.printf("%s %s | %s | %s%n", "1", " ", " ", " ") }
+        verify { console.printf("----+---+---%n") }
+        verify { console.printf("%s %s | %s | %s%n", "2", " ", " ", " ") }
+        verify { console.printf("Winner: %s%n", Players.ONE) }
+    }
 }
 

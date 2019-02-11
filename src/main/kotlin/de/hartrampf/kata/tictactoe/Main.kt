@@ -7,15 +7,8 @@ fun main() {
     val console = getConsole()
     val gameBoard = GameBoard()
     val controller = GameBoardConsoleController(gameBoard, console)
-    var player = 0
-    while (true) {
-        controller.visualize()
-        val nextCommand = controller.getNextCommand()
-        val coordinates = Coordinates.valueOf(nextCommand)
-        if (gameBoard.placeToken(Players.values()[player], coordinates)) {
-            player = (player + 1) % 2
-        }
-    }
+    val game = Game(gameBoard, controller)
+    game.play()
 }
 
 private fun getConsole(): Console {

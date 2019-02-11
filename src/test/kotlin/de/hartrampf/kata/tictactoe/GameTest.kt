@@ -14,7 +14,7 @@ internal class GameTest {
     @BeforeEach
     internal fun setUp() {
         gameBoard = mockk(relaxed = true)
-        game = Game(gameBoard)
+        game = Game(gameBoard, mockk())
     }
 
     @Test

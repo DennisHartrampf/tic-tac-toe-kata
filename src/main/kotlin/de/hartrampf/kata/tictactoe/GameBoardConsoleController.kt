@@ -13,6 +13,8 @@ class GameBoardConsoleController(private val gameBoard: GameBoard, private val c
             printLineSeparator()
             printLine(2)
         }
+        if (gameBoard.winner != null) console.printf("Winner: %s%n", gameBoard.winner)
+        else if (gameBoard.isFull()) console.printf("Game is draw!%n")
     }
 
     private fun Console.printHeader() {
