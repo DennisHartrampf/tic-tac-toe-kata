@@ -34,7 +34,7 @@ class GameBoardConsoleController(private val gameBoard: GameBoard, private val c
     }
 
     fun getNextCommand(): String {
-        return console.readLine()
+        return console.readLine().toUpperCase()
     }
 
 }

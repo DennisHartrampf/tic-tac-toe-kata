@@ -44,6 +44,8 @@ internal class GameBoardConsoleControllerTest {
     fun testPlayerOneCanPlaceToken() {
         every { console.readLine() } returns "A0"
         assertThat(controller.getNextCommand()).isEqualTo("A0")
+        every { console.readLine() } returns "a0"
+        assertThat(controller.getNextCommand()).isEqualTo("A0")
     }
 
     @Test
