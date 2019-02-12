@@ -48,7 +48,7 @@ internal class GameTest {
     }
 
     @Test
-    fun testPlay() {
+    fun testPlay_winner() {
         every { gameBoard.winner }.returnsMany(null, null, Players.ONE)
         every { controller.getNextCommand() } returns "A0"
 
@@ -57,5 +57,20 @@ internal class GameTest {
         verify(exactly = 3) { controller.visualize() }
         verify(exactly = 2) { controller.getNextCommand() }
         verify(exactly = 2) { gameBoard.placeToken(Players.ONE, Coordinates.A0) }
+    }
+
+    @Test
+    fun testPlay() {
+        every { gameBoard.winner }.returnsMany(null, null, null, Players.ONE)
+        every { controller.getNextCommand() }.returnsMany("A0", "A0", "A1")
+        every { gameBoard.placeToken(any(), any())}.returnsMany(true, false, true)
+
+        game.play()
+
+        verify(exactly = 4) { controller.visualize() }
+        verify(exactly = 3) { controller.getNextCommand() }
+        verify { gameBoard.placeToken(Players.ONE, Coordinates.A0) }
+        verify { gameBoard.placeToken(Players.TWO, Coordinates.A0) }
+        verify { gameBoard.placeToken(Players.TWO, Coordinates.A1) }
     }
 }
